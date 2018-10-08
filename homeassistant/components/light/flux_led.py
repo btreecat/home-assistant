@@ -266,7 +266,11 @@ class FluxLight(Light):
 
         # handle RGBW mode
         elif self._mode == MODE_RGBW:
-            self._bulb.setRgbw(*tuple(rgb), w=white, brightness=brightness)
+            #check if setting warm white or rgb value
+            if 'white_value' in kwargs.keys():
+                self._bulb.setWarmWhite255(white)
+            else:
+                self._bulb.setRgbw(*tuple(rgb), brightness=brightness)
 
         # handle RGB mode
         else:
